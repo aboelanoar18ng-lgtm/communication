@@ -3,349 +3,687 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثورة الاتصالات | من التلغراف إلى الفضاء</title>
-    <!-- استدعاء خط عربي حديث من Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+    <title>متحف التطور التكنولوجي | مصر والعالم</title>
+    
+    <!-- خطوط جوجل العربية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+
     <style>
         /* --- المتغيرات والألوان --- */
         :root {
-            --bg-color: #0f172a; /* كحلي غامق */
-            --card-bg: #1e293b; /* كحلي أفتح */
-            --text-color: #e2e8f0; /* أبيض مائل للرمادي */
-            --accent-color: #38bdf8; /* سماوي مشرق */
-            --secondary-accent: #f472b6; /* وردي فاتح */
-            --font-main: 'Tajawal', sans-serif;
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --text-color: #e0e0e0;
+            --accent-color: #00f3ff; /* أزرق نيون */
+            --accent-glow: rgba(20, 179, 187, 0.5);
+            --secondary-accent: #0066ff4f; /* بنفسجي نيون */
+            --font-main: 'Cairo', sans-serif;
+            --transition: all 0.3s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
+
+        
 
         body {
             font-family: var(--font-main);
+         html {
+           scroll-padding-top: 90px;
+        } 
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.8;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- شريط التنقل --- */
-        nav {
-            background-color: rgba(15, 23, 42, 0.95);
-            padding: 1.5rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--accent-color);
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            right: 0;
-            background-color: var(--accent-color);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* --- القسم الرئيسي (Hero) --- */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-            padding: 0 20px;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--accent-color), var(--secondary-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        header p {
-            font-size: 1.5rem;
-            max-width: 700px;
-            color: #94a3b8;
-            animation: fadeInUp 1s ease-out 0.5s backwards;
-        }
-
-        /* --- الأقسام (Sections) --- */
+        /* --- تنسيق الحاويات --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 20px;
+            padding: 0 20px;
         }
 
-        .section-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 150px;
-            opacity: 0; /* مخفي للأنيميشن */
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+        .section-title {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .section-wrapper.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* تبديل اتجاه الصور والنصوص */
-        .section-wrapper:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .text-box {
-            flex: 1;
-            padding: 2rem;
-            min-width: 300px;
-        }
-
-        .text-box h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-color);
-            position: relative;
+        .btn {
             display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .text-box h2::before {
+        .btn::before {
             content: '';
             position: absolute;
-            left: -20px;
-            top: 50%;
-            width: 10px;
-            height: 10px;
-            background-color: var(--secondary-accent);
-            border-radius: 50%;
-            transform: translateY(-50%);
+            top: 0; left: 0; width: 0; height: 100%;
+            background: var(--accent-color);
+            z-index: -1;
+            transition: var(--transition);
         }
 
-        .text-box p {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            text-align: justify;
+        .btn:hover::before { width: 100%; }
+        .btn:hover { color: #000; box-shadow: 0 0 20px var(--accent-glow); }
+
+        /* --- الهيدر والقائمة --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
         }
 
-        .image-box {
-            flex: 1;
-            min-width: 300px;
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- قسم الهيرو (الرئيسية) --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* خلفية متحركة */
+        .hero-bg {
+            
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: moveGrid 20s linear infinite;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: (90deg, #fff, var(--accent-color));
+           
+            -webkit-text-fill-color: initialent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #aaa;
+        }
+
+        /* --- أقسام المتحف --- */
+        #rooms {
+            padding: 100px 0;
+            background: #080808;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .room-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
             position: relative;
         }
 
-        .image-box img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: transform 0.5s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+        .room-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
         }
 
-        .image-box img:hover {
-            transform: scale(1.03);
+        .room-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+            filter: grayscale(80%);
+            transition: var(--transition);
+        }
+
+        .room-card:hover .room-img {
+            filter: grayscale(0%);
+        }
+
+        .room-content {
+            padding: 20px;
+        }
+
+        .room-content h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .room-content ul {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .room-content li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .room-content li::before {
+            content: '➤';
+            color: var(--accent-color);
+            margin-left: 8px;
+            font-size: 0.8rem;
+        }
+
+        .interactive-badge {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--accent-color);
+            border-radius: 20px;
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- المميزات الإضافية --- */
+        #features {
+            padding: 80px 0;
+            background: #050505;
+
+            
+        }
+
+        .features-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            padding: 30px;
+            border-radius: 10px;
+            width: 250px;
+            text-align: center;
+            border: 1px solid #222;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            border-color: var(--secondary-accent);
+            box-shadow: 0 0 15px rgba(56, 104, 207, 0.733);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--secondary-accent);
+        }
+
+        /* --- الجمهور المتوقع والأثر --- */
+        #info-sections {
+            padding: 80px 0;
+            background: #080808;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .info-box {
+            background: #111;
+            padding: 40px;
+            border-radius: 15px;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .info-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .info-box p {
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+
+        /* --- اتصل بنا --- */
+        #contact {
+            padding: 80px 0;
+            background: linear-gradient(to top, #000, #050505);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 5px;
+            font-family: var(--font-main);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
         }
 
         /* --- الفوتر --- */
         footer {
-            background-color: #020617;
+            background: #000;
+            padding: 40px 0;
             text-align: center;
-            padding: 40px;
-            color: #64748b;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid #222;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- تأثيرات الحركة --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* --- التجاوب مع الجوال --- */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .section-wrapper, .section-wrapper:nth-child(even) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                width: 100%;
+                background: #000;
                 flex-direction: column;
-                margin-bottom: 80px;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                border-bottom: 1px solid var(--accent-color);
             }
-            .image-box img { height: 250px; margin-top: 30px; }
-            .nav-links { display: none; } /* يمكن إضافة قائمة هامبرغر هنا */
-        }
 
-        /* --- أنيميشن --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        
     </style>
 </head>
 <body>
 
-    <!-- القائمة العلوية -->
-    <nav>
-        <div class="logo">ثورة الاتصالات</div>
-        <ul class="nav-links">
-     <li><a href="#communication-revolution">المقدمة</a></li>
-            <li><a href="#telegraph">التلغراف</a></li>
-            <li><a href="#telephone">الهاتف</a></li>
-            <li><a href="#satellite">القمر الصناعي</a></li>
-        </ul>
-    </nav>
-
-    <!-- الواجهة الرئيسية -->
-    <header>
-        <h1>ثورة الاتصالات</h1>
-        <p>رحلة عبر الزمن: من الإشارات الكهربائية البسيطة إلى شبكات الفضاء العالمية</p>
-        
-    </header>
     
-<!-- بطاقة تعريف ثورة الاتصالات -->
-<section id="communication-revolution" class="section-wrapper">
-    <div class="text-box" style="background-color: #1e293b; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-        <h2>تعريف ثورة الاتصالات</h2>
-        <p>
-            ثورة الاتصالات هي التحول الجذري في وسائل نقل المعلومات والتواصل بين البشر. بدأت من اختراع التلغراف في القرن التاسع عشر، مرورًا بالهاتف والأقمار الصناعية، ووصولًا إلى الإنترنت والشبكات الرقمية الحديثة.
-        </p>
-        <br>
-        <p>
-            هذه الثورة جعلت العالم أكثر ترابطًا، وسرّعت نقل الأخبار والمعلومات، وأسست لعالم متصل بالوقت الفعلي بين القارات والمجتمعات.
-        </p>
-        <p>ومع ظهور الإنترنت والشبكات الرقمية الحديثة، أصبحت المعلومات متاحة للجميع في أي وقت، وعززت وسائل التواصل الاجتماعي والبريد الإلكتروني والفيديو كونفرنس من قدرة البشر على التواصل والتعاون العالمي، مما أسهم في التطور الاقتصادي، التعليمي، والثقافي على مستوى العالم. لقد جعلت ثورة الاتصالات العالم أكثر ترابطًا وسرّعت نقل الأخبار والمعلومات، وأسست لعالم متصل بالوقت الفعلي بين القارات والمجتمعات، مؤكدةً أهمية الابتكار التكنولوجي في حياتنا اليومية </p>
+
+    <!-- القائمة العلوية -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">TECHVERSE EGYPT MUSEUM</div>
+                <ul class="nav-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#rooms">غرف المتحف</a></li>
+                    <li><a href="#features">مميزات</a></li>
+                </ul>
+                <div class="hamburger">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- الصفحة الرئيسية -->
+    <section id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-in">
+            <h1>متحف التطور التكنولوجي</h1> 
+            <p>رحلة عبر الزمن من هندسة الأهرامات إلى الذكاء الاصطناعي. اكتشف كيف غيرت التكنولوجيا وجه مصر والعالم.</p>
+            <a href="#rooms" class="btn">استكشف المتحف</a>
+        </div>
+    </section>
+
+    
+</div>
+
+    <!-- غرف المتحف -->
+    <section id="rooms">
+        <div class="container">
+            <h2 class="section-title">غرف المتحف</h2>
+
+            <div class="rooms-grid">
+                
+            
+                 <!-- Room 1 -->
+                 <a href="rooms.html">
+                <div class="room-card fade-in">
+                    <img src="https://menoflostglory.wordpress.com/wp-content/uploads/2015/02/1330.jpg" alt="الحضارات القديمة" class="room-img">
+                    <div class="room-content">
+                        <h3>الحضارات القديمة والهندسة المبكرة</h3>
+                        
+                        <ul>
+                            <li>هندسة الأهرامات المصرية</li>
+                            <li>نظام قياس النيل</li>
+                            <li>الأنظمة الطبية والكتابة</li>
+                        </ul>
+                        <span class="interactive-badge">اضغط للدخول</span>
+                        
+                    </div>
+                </div>
+               </a>
+
+                <!-- Room 2 -->
+                
+                <a href="Industrial.html">
+                 <div class="room-card fade-in">
+                    <img src="https://i0.wp.com/albukhari.com/wp-content/uploads/2025/11/shopfloor.jpg?w=1280&ssl=1" class="room-img">
+                    <div class="room-content">
+                        <h3>الثورة الصناعية</h3>
+                        <ul>
+                            <li>المحرك البخاري</li>
+                            <li>التصنيع الميكانيكي</li>
+                            <li>السكك الحديدية</li>
+                        </ul>
+                        <span class="interactive-badge">اضغط للدخول </span>
+                    </div>
+                </div>
+                </a>
+                <!-- Room 3 -->
+                  <a href="communication.html">
+                <div class="room-card fade-in">
+                    <img src="https://3qool.net/uploads/images/202601/image_1200x_6971babedf727.jpg" class="room-img">
+                    <div class="room-content">
+                        <h3>ثورة الاتصالات</h3>
+                        <ul>
+                            <li>التلغراف</li>
+                            <li>الهاتف</li>
+                            <li>الأقمار الصناعية</li>
+                        </ul>
+                        <span class="interactive-badge">اضغط للدخول </span>
+                    </div>
+                </div>
+                </a>
+                <!-- Room 4 -->
+                <div class="room-card fade-in">
+                    <img src="https://cdn1-m.alittihad.ae/assets/images/Articles/750x425/2019/9/2019924133345340LP.jpg?v=7&width=1300" class="room-img">
+                    <div class="room-content">
+                        <h3>العصر الرقمي</h3>
+                        <ul>
+                            <li>الحواسيب الأولى</li>
+                            <li>تطور الإنترنت</li>
+                            <li>الذكاء الاصطناعي</li>
+                        </ul>
+                        <span class="interactive-badge"> اضغط للدخول</span>
+                    </div>
+                </div>
+
+                <!-- Room 5 -->
+                <div class="room-card fade-in">
+                    <img src="https://www.maspero.eg/image/750/450/2022/12/16716172200.jpg" class="room-img">
+                    <div class="room-content">
+                        <h3>التكنولوجيا في مصر الحديثة</h3>
+                        <ul>
+                            <li>المدن الذكية</li>
+                            <li>التحول الرقمي</li>
+                            <li>الشركات الناشئة</li>
+                        </ul>
+                        <span class="interactive-badge">اضغط للدخول </span>
+                    </div>
+                </div>
+
+                <!-- Room 6 -->
+                <div class="room-card fade-in">
+                    <img src="https://vid.alarabiya.net/images/2023/06/11/ac769da3-da47-436e-9f2e-b8bb47bc0df2/ac769da3-da47-436e-9f2e-b8bb47bc0df2_16x9_600x338.jpg" class="room-img">
+                    <div class="room-content">
+                        <h3>التكنولوجيا في السياحة والطيران</h3>
+                        <ul>
+                            <li>أنظمة حجز الطيران</li>
+                            <li>GDS</li>
+                            <li>المطارات الذكية</li>
+                        </ul>
+                        <span class="interactive-badge"> اضغط للدخول</span>
+                    </div>
+                </div>
+
+                <!-- Room 7 -->
+                <div class="room-card fade-in">
+                    <img src="https://cdn1-m.alittihad.ae/store/archive/image/2025/2/15/46f6c7e8-d719-43b1-8625-292dcbfc2eed.png?width=1300" class="room-img">
+                    <div class="room-content">
+                        <h3>مستقبل التكنولوجيا</h3>
+                        <ul>
+                            <li>الروبوتات</li>
+                            <li>الفضاء</li>
+                            <li>المدن المستدامة</li>
+                        </ul>
+                        <span class="interactive-badge">اضغط للدخول </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+    <div class="container">
+        <h2 class="section-title">مميزات المتحف</h2>
+
+        <div class="features-wrapper">
+
+
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🤖</div>
+                <h3>مرشد ذكي بالذكاء الاصطناعي</h3>
+                <p>
+                    نظام تفاعلي يعتمد على الذكاء الاصطناعي 
+                    للإجابة على أسئلة الزوار وتقديم شرح مبسط 
+                    ومناسب لكل فئة عمرية.
+                </p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🧩</div>
+                <h3>تجارب تفاعلية ومحاكاة</h3>
+                <p>
+                    محاكاة لبناء الأهرامات، تشغيل المحرك البخاري، 
+                    وتجربة إرسال رسالة عبر التلغراف بطريقة عملية.
+                </p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">📱</div>
+                <h3>تطبيق مرافق للمتحف</h3>
+                <p>
+                    تطبيق ذكي يساعد الزوار على التنقل بين الأقسام، 
+                    حفظ الملاحظات، والحصول على محتوى إضافي حصري.
+                </p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🌍</div>
+                <h3>دعم لغات متعددة</h3>
+                <p>
+                    إمكانية تصفح المحتوى باللغة العربية والإنجليزية 
+                    لتسهيل وصول المعلومات للزوار من مختلف الجنسيات.
+                </p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🎓</div>
+                <h3>محتوى تعليمي تفاعلي</h3>
+                <p>
+                    أنشطة تعليمية ومسابقات رقمية مخصصة للطلاب 
+                    لتعزيز الفهم بطريقة ممتعة وعملية.
+                </p>
+            </div>
+
+        </div>
     </div>
 </section>
-    <div class="container">
 
-        <!-- القسم الأول: التلغراف -->
-        <section id="telegraph" class="section-wrapper">
-            <div class="text-box">
-                <h2>1. التلغراف: البداية</h2>
-                <p>
-                    يُعد التلغراف أول ثورة حقيقية في عالم الاتصالات السريعة. قبل اختراعه، كانت الرسائل تنتقل بسرعة الخيول أو السفن. مع اختراع التلغراف الكهربائي في القرن التاسع عشر، أصبح بالإمكان إرسال الرسائل عبر أسلاك كهربائية في ثوانٍ معدودة.
-                </p>
-                <br>
-                <p>
-                    اعتمد التلغراف على "شيفرة مورس" التي حوّلت الحروف إلى نقاط وشرطات، مما سمح بنقل المعلومات عبر القارات والمحيطات لأول مرة، مما غيّر مفهوم "الوقت" و"المسافة" في التاريخ البشري.
-                </p>
-            </div>
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="آلة تلغراف قديمة">
-            </div>
-        </section>
-
-        <!-- القسم الثاني: الهاتف -->
-        <section id="telephone" class="section-wrapper">
-            <div class="text-box">
-                <h2>2. الهاتف: صوت العالم</h2>
-                <p>
-                    إذا كان التلغراف ينقل النصوص، فإن الهاتف نقل "الصوت" البشري. في عام 1876، حصل ألكسندر جراهام بيل على براءة اختراع الهاتف، مما سمح للناس بالتحدث مع بعضهم البعض مباشرة دون الحاجة لترجمة الرسائل.
-                </p>
-                <br>
-                <p>
-                    تطور الهاتف من أجهزة خشبية ضخمة مثبتة على الحائط إلى هواتف محمولة ذكية نستخدمها اليوم. هذا التطور جعل الاتصال الشخصي فوريًا وشخصيًا، وأسس لبنية تحتية عالمية تربط كل منزل ببعضه البعض.
-                </p>
-            </div>
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" alt="هاتف ذكي حديث">
-            </div>
-        </section>
-
-        <!-- القسم الثالث: القمر الصناعي -->
-        <section id="satellite" class="section-wrapper">
-            <div class="text-box">
-                <h2>3. القمر الصناعي: الاتصال العالمي</h2>
-                <p>
-                    في منتصف القرن العشرين، قفزنا من الأرض إلى الفضاء. بدأت الأقمار الصناعية في نقل الإشارات اللاسلكية عبر مسافات شاسعة، مما سمح بتغطية المناطق النائية والمحيطات التي لا تصلها الكابلات الأرضية.
-                </p>
-                <br>
-                <p>
-                    تلعب الأقمار الصناعية دورًا حيويًا اليوم في البث التلفزيوني المباشر، نظام تحديد المواقع (GPS)، والإنترنت عالي السرعة. هي العمود الفقري للعولمة الحديثة، حيث تربط القارات ببعضها البعض في شبكة واحدة لا تنقطع.
-                </p>
-            </div>
-            <div class="image-box">
-                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=800&auto=format&fit=crop" alt="قمر صناعي في الفضاء">
-            </div>
-        </section>
-
-    </div>
 
     <!-- الفوتر -->
     <footer>
-        <p>  موقع ثورة الاتصالات &copy; 2026 - TechVerse Egypt</p>
+        <p>© 2026 متحف التطور التكنولوجي - مشروع تخرج</p>
     </footer>
 
-    <!-- سكريبت الجافاسكربت -->
     <script>
-        // كل الروابط اللي تبدأ بـ #
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if(target) {
-                const navHeight = document.querySelector('nav').offsetHeight; // ارتفاع الـ nav
-                const offset = 10; // مسافة بسيطة
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - offset;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+        // تأثير الظهور عند التمرير
+        const elements = document.querySelectorAll(".fade-in");
 
-        // 2. أنيميشن الظهور عند التمرير (Scroll Animation)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add("visible");
                 }
             });
         });
 
-        const hiddenElements = document.querySelectorAll('.section-wrapper');
-        hiddenElements.forEach((el) => observer.observe(el));
+        elements.forEach(el => observer.observe(el));
+
+        // قائمة الموبايل
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
     </script>
+
+   
+
 </body>
-</html>
+</html>               
+
