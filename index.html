@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثورة الاتصالات | من التلغراف إلى الفضاء</title>
+    <!-- استدعاء خط عربي حديث من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- المتغيرات والألوان --- */
+        :root {
+            --bg-color: #0f172a; /* كحلي غامق */
+            --card-bg: #1e293b; /* كحلي أفتح */
+            --text-color: #e2e8f0; /* أبيض مائل للرمادي */
+            --accent-color: #38bdf8; /* سماوي مشرق */
+            --secondary-accent: #f472b6; /* وردي فاتح */
+            --font-main: 'Tajawal', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- شريط التنقل --- */
+        nav {
+            background-color: rgba(15, 23, 42, 0.95);
+            padding: 1.5rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- القسم الرئيسي (Hero) --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            padding: 0 20px;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            color: #94a3b8;
+            animation: fadeInUp 1s ease-out 0.5s backwards;
+        }
+
+        /* --- الأقسام (Sections) --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .section-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 150px;
+            opacity: 0; /* مخفي للأنيميشن */
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .section-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* تبديل اتجاه الصور والنصوص */
+        .section-wrapper:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .text-box {
+            flex: 1;
+            padding: 2rem;
+            min-width: 300px;
+        }
+
+        .text-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-box h2::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-accent);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .text-box p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            text-align: justify;
+        }
+
+        .image-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: transform 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .image-box img:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- الفوتر --- */
+        footer {
+            background-color: #020617;
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- التجاوب مع الجوال --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .section-wrapper, .section-wrapper:nth-child(even) {
+                flex-direction: column;
+                margin-bottom: 80px;
+            }
+            .image-box img { height: 250px; margin-top: 30px; }
+            .nav-links { display: none; } /* يمكن إضافة قائمة هامبرغر هنا */
+        }
+
+        /* --- أنيميشن --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة العلوية -->
+    <nav>
+        <div class="logo">ثورة الاتصالات</div>
+        <ul class="nav-links">
+     <li><a href="#communication-revolution">المقدمة</a></li>
+            <li><a href="#telegraph">التلغراف</a></li>
+            <li><a href="#telephone">الهاتف</a></li>
+            <li><a href="#satellite">القمر الصناعي</a></li>
+        </ul>
+    </nav>
+
+    <!-- الواجهة الرئيسية -->
+    <header>
+        <h1>ثورة الاتصالات</h1>
+        <p>رحلة عبر الزمن: من الإشارات الكهربائية البسيطة إلى شبكات الفضاء العالمية</p>
+        
+    </header>
+    
+<!-- بطاقة تعريف ثورة الاتصالات -->
+<section id="communication-revolution" class="section-wrapper">
+    <div class="text-box" style="background-color: #1e293b; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+        <h2>تعريف ثورة الاتصالات</h2>
+        <p>
+            ثورة الاتصالات هي التحول الجذري في وسائل نقل المعلومات والتواصل بين البشر. بدأت من اختراع التلغراف في القرن التاسع عشر، مرورًا بالهاتف والأقمار الصناعية، ووصولًا إلى الإنترنت والشبكات الرقمية الحديثة.
+        </p>
+        <br>
+        <p>
+            هذه الثورة جعلت العالم أكثر ترابطًا، وسرّعت نقل الأخبار والمعلومات، وأسست لعالم متصل بالوقت الفعلي بين القارات والمجتمعات.
+        </p>
+        <p>ومع ظهور الإنترنت والشبكات الرقمية الحديثة، أصبحت المعلومات متاحة للجميع في أي وقت، وعززت وسائل التواصل الاجتماعي والبريد الإلكتروني والفيديو كونفرنس من قدرة البشر على التواصل والتعاون العالمي، مما أسهم في التطور الاقتصادي، التعليمي، والثقافي على مستوى العالم. لقد جعلت ثورة الاتصالات العالم أكثر ترابطًا وسرّعت نقل الأخبار والمعلومات، وأسست لعالم متصل بالوقت الفعلي بين القارات والمجتمعات، مؤكدةً أهمية الابتكار التكنولوجي في حياتنا اليومية </p>
+    </div>
+</section>
+    <div class="container">
+
+        <!-- القسم الأول: التلغراف -->
+        <section id="telegraph" class="section-wrapper">
+            <div class="text-box">
+                <h2>1. التلغراف: البداية</h2>
+                <p>
+                    يُعد التلغراف أول ثورة حقيقية في عالم الاتصالات السريعة. قبل اختراعه، كانت الرسائل تنتقل بسرعة الخيول أو السفن. مع اختراع التلغراف الكهربائي في القرن التاسع عشر، أصبح بالإمكان إرسال الرسائل عبر أسلاك كهربائية في ثوانٍ معدودة.
+                </p>
+                <br>
+                <p>
+                    اعتمد التلغراف على "شيفرة مورس" التي حوّلت الحروف إلى نقاط وشرطات، مما سمح بنقل المعلومات عبر القارات والمحيطات لأول مرة، مما غيّر مفهوم "الوقت" و"المسافة" في التاريخ البشري.
+                </p>
+            </div>
+            <div class="image-box">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" alt="آلة تلغراف قديمة">
+            </div>
+        </section>
+
+        <!-- القسم الثاني: الهاتف -->
+        <section id="telephone" class="section-wrapper">
+            <div class="text-box">
+                <h2>2. الهاتف: صوت العالم</h2>
+                <p>
+                    إذا كان التلغراف ينقل النصوص، فإن الهاتف نقل "الصوت" البشري. في عام 1876، حصل ألكسندر جراهام بيل على براءة اختراع الهاتف، مما سمح للناس بالتحدث مع بعضهم البعض مباشرة دون الحاجة لترجمة الرسائل.
+                </p>
+                <br>
+                <p>
+                    تطور الهاتف من أجهزة خشبية ضخمة مثبتة على الحائط إلى هواتف محمولة ذكية نستخدمها اليوم. هذا التطور جعل الاتصال الشخصي فوريًا وشخصيًا، وأسس لبنية تحتية عالمية تربط كل منزل ببعضه البعض.
+                </p>
+            </div>
+            <div class="image-box">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop" alt="هاتف ذكي حديث">
+            </div>
+        </section>
+
+        <!-- القسم الثالث: القمر الصناعي -->
+        <section id="satellite" class="section-wrapper">
+            <div class="text-box">
+                <h2>3. القمر الصناعي: الاتصال العالمي</h2>
+                <p>
+                    في منتصف القرن العشرين، قفزنا من الأرض إلى الفضاء. بدأت الأقمار الصناعية في نقل الإشارات اللاسلكية عبر مسافات شاسعة، مما سمح بتغطية المناطق النائية والمحيطات التي لا تصلها الكابلات الأرضية.
+                </p>
+                <br>
+                <p>
+                    تلعب الأقمار الصناعية دورًا حيويًا اليوم في البث التلفزيوني المباشر، نظام تحديد المواقع (GPS)، والإنترنت عالي السرعة. هي العمود الفقري للعولمة الحديثة، حيث تربط القارات ببعضها البعض في شبكة واحدة لا تنقطع.
+                </p>
+            </div>
+            <div class="image-box">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=800&auto=format&fit=crop" alt="قمر صناعي في الفضاء">
+            </div>
+        </section>
+
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>  موقع ثورة الاتصالات &copy; 2026 - TechVerse Egypt</p>
+    </footer>
+
+    <!-- سكريبت الجافاسكربت -->
+    <script>
+        // كل الروابط اللي تبدأ بـ #
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            if(target) {
+                const navHeight = document.querySelector('nav').offsetHeight; // ارتفاع الـ nav
+                const offset = 10; // مسافة بسيطة
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+        // 2. أنيميشن الظهور عند التمرير (Scroll Animation)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.section-wrapper');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
